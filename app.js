@@ -19,6 +19,22 @@
     draw(){
       this.head.draw()
     }
+    /* Defined method draw */
+    right(){
+      this.head.x += 10;
+    }
+    /* Defined method left */
+    left(){
+      this.head.x -= 10;
+    }
+    /* Defined method up */
+    up(){
+      this.head.y -= 10;
+    }
+    /* Defined method down */
+    down(){
+      this.head.y += 10;
+    }
   }
 
   const canvas = document.getElementById('canvas')
@@ -27,5 +43,11 @@
   /*fillRect(posX, posY, width, height)*/
 
   const snake = new Snake()
+  
+  setInterval(function(){
+    snake.right() // move right
+    ctx.clearRect(0, 0, canvas.width, canvas.height) // clear canvas
+    snake.draw() // draw again
+  }, 1000 / 30) // run each 33 mil
 
 })()
