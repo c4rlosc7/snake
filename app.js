@@ -8,8 +8,15 @@
 
   /* Defined class food */
   class Food {
-    constructor() {
-
+    constructor(x, y){
+      this.x = x
+      this.y = y
+    }
+    static generate(){
+      return new Food(Random.get(0, 500), Random.get(0, 300))
+    }
+    draw(){
+      ctx.fillRect(this.x, this.y, 10, 10)
     }
   }
   /* Defined Class Square */
@@ -99,6 +106,7 @@
   //ctx.fillRect(20, 20, 50, 50)
   /*fillRect(posX, posY, width, height)*/
   const snake = new Snake()
+  let foods = []
   // Global object window  left=37, up=38, right=39, down=40
   window.addEventListener("keydown", function(event){
     console.log(event.keyCode)
@@ -115,6 +123,19 @@
     snake.move()
     ctx.clearRect(0, 0, canvas.width, canvas.height) // clear canvas
     snake.draw() // draw again
+    drawFood()
   }, 1000 / 5) //  each 5 frame per secound
+
+  setInterval(function(){
+    const food = Food.generate()
+    foods.push(food)
+  }, 4000)
+
+  drawFood = function(){
+    for(const index in foods){
+      const food = foods[index]
+      food.draw()
+    }
+  }
 
 })()
