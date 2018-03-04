@@ -8,3 +8,9 @@ canvas{
 .content-game{
 	margin: 10px 20px;
 }
+
+.snake-game{
+	font-weight: bold;
+  color: green;
+  text-shadow: 2px 2px 8px #fcff00;
+}

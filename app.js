@@ -11,12 +11,14 @@
     constructor(x, y){
       this.x = x
       this.y = y
+      this.width = 10
+      this.height = 10
     }
     static generate(){
       return new Food(Random.get(0, 500), Random.get(0, 300))
     }
     draw(){
-      ctx.fillRect(this.x, this.y, 10, 10)
+      ctx.fillRect(this.x, this.y, this.width, this.height)
     }
   }
   /* Defined Class Square */
@@ -24,10 +26,12 @@
     constructor(x, y) {
       this.x = x
       this.y = y
+      this.width = 10
+      this.height = 10
       this.back = null
     }
     draw(){
-      ctx.fillRect(this.x, this.y, 10, 10)
+      ctx.fillRect(this.x, this.y, this.width, this.height)
       if (this.hasBack()) {
         this.back.draw()
       }
@@ -99,6 +103,9 @@
       if(this.direction === "right") return this.head.right()
       if(this.direction === "left") return this.head.left()
     }
+    eat(){
+      this.head.add()
+    }
   }
 
   const canvas = document.getElementById('canvas')
@@ -110,7 +117,8 @@
   // Global object window  left=37, up=38, right=39, down=40
   window.addEventListener("keydown", function(event){
     console.log(event.keyCode)
-    event.preventDefault()
+    if(event.keyCode > 36 && event.keyCode < 41) event.preventDefault()
+
     if (event.keyCode === 37) return snake.left();
     if (event.keyCode === 38) return snake.up();
     if (event.keyCode === 39) return snake.right();
@@ -137,7 +145,13 @@
   drawFood = function(){
     for(const index in foods){
       const food = foods[index]
-      food.draw()
+      if(typeof food !== "undefined") {
+          food.draw()
+          if (hit(food, snake.head)) {
+            snake.eat()
+            removeFromFoods(food)
+          }          
+      }
     }
   }
 
@@ -146,5 +160,25 @@
       return food !== f
     })
   }
+
+  function hit(a,b){
+   var hit = false;
+   if(b.x + b.width >= a.x && b.x < a.x + a.width){
+    if(b.y + b.height >= a.y && b.y < a.y + a.height){
+     hit=true;
+    }
+   }
+   if(b.x <= a.x && b.x + b.width >= a.x + a.width){
+    if(b.y <= a.y && b.y + b.height >= a.y + a.height){
+     hit=true;
+    }
+   }
+   if(a.x <=b.x && a.x + a.width >= b.x + b.width){
+    if(a.y <= b.y && a.y + a.height >= b.y + b.height){
+     hit = true;
+    }
+   }
+   return hit;
+  }﻿
 
 })()
