@@ -129,6 +129,9 @@
   setInterval(function(){
     const food = Food.generate()
     foods.push(food)
+    setTimeout(function(){
+      removeFromFoods(food)
+    },10000)
   }, 4000)
 
   drawFood = function(){
@@ -136,6 +139,12 @@
       const food = foods[index]
       food.draw()
     }
+  }
+
+  removeFromFoods = function(food){
+    foods = foods.filter(function(f){
+      return food !== f
+    })
   }
 
 })()
