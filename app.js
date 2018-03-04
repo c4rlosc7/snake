@@ -1,4 +1,10 @@
 ;(function(){
+  /* Defined class food */
+  class Food {
+    constructor() {
+
+    }
+  }
   /* Defined Class Square */
   class Square {
     constructor(x, y) {
