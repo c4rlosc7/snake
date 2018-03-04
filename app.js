@@ -1,4 +1,11 @@
 ;(function(){
+  /* Defined class Random */
+  class Random{
+    static get(init, final){
+      return Math.floor(Math.random() * final) + init;
+    }
+  }
+
   /* Defined class food */
   class Food {
     constructor() {
